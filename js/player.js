@@ -87,8 +87,13 @@ export function createPlayer(exports, options = {}) {
   let ctx = null;
   let osc = null;
   let gain = null;
+  let rafId = null;
 
   function closeContext() {
+    if (rafId !== null) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
     if (!ctx) {
       return;
     }
@@ -135,7 +140,7 @@ export function createPlayer(exports, options = {}) {
     return {count, events};
   }
 
-  function play(song, bpm) {
+  function play(song, bpm, onNote) {
     stop();
 
     ctx = createContext();
@@ -157,20 +162,46 @@ export function createPlayer(exports, options = {}) {
     };
 
     const {count, events} = parse(song, bpm);
+    const eventTimes = new Float32Array(count);
     let t = ctx.currentTime;
+    const startT = t;
 
     for (let i = 0; i < count; i += 1) {
       const idx = i * 3;
       const freq = events[idx];
       const level = events[idx + 1];
       const duration = events[idx + 2];
+      
       osc.frequency.setValueAtTime(freq, t);
       gain.gain.setValueAtTime(level, t);
+
+      eventTimes[i] = t;
       t += duration;
     }
 
     gain.gain.setValueAtTime(0, t);
     osc.stop(t);
+
+    if (typeof onNote === 'function') {
+      let nextEvent = 0;
+      const localCtx = ctx;
+      const tick = () => {
+        if (ctx !== localCtx) {
+          return;
+        }
+        const now = localCtx.currentTime;
+        while (nextEvent < count && eventTimes[nextEvent] <= now) {
+          if ((nextEvent & 1) === 0) {
+            onNote(nextEvent);
+          }
+          nextEvent += 1;
+        }
+        if (nextEvent < count) {
+          rafId = requestAnimationFrame(tick);
+        }
+      };
+      rafId = requestAnimationFrame(tick);
+    }
   }
 
   return {play, stop, parse};

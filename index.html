@@ -21,6 +21,14 @@
                     <input class="input" id="bpm" value="120" type="number" min="1" max="800" />
                 </div>
                 <div class="control-group">
+                    <label class="label" for="default-duration">Default Dur (D)</label>
+                    <input class="input" id="default-duration" value="4" type="number" min="1" max="64" />
+                </div>
+                <div class="control-group">
+                    <label class="label" for="default-octave">Default Octave (O)</label>
+                    <input class="input" id="default-octave" value="5" type="number" min="4" max="7" />
+                </div>
+                <div class="control-group control-group--wide">
                     <label class="label" for="song-select">Load Song</label>
                     <select class="select" id="song-select"></select>
                 </div>
@@ -53,24 +61,24 @@
                   A melody in composer format is a sequence of notes, separated by whitespace. Notes can be upper-case or lower-case from <b>C</b> (do) to <b>B</b> (ti).
                 </p>
 
-                <p> &gt;&nbsp;
+                <p>
                   <span class="code-snippet clickable" data-song="c d e f g a b" data-bpm="120">c d e f g a b</span>
                 </p>
 
                 <p>Note duration can be written before the note symbol. Dot increases the note duration by half. Default note duration is 1/4th.</p>
 
-                <p> &gt;&nbsp;
+                <p>
                   <span class="code-snippet clickable" data-song="4.c 8d 4.e 8c 4e 4c 4e" data-bpm="140">4.c 8d 4.e 8c 4e 4c 4e</span>
                 </p>
 
                 <p>Rests are indicated by the "-" character</p>
-                <p> &gt;&nbsp;
+                <p>
                   <span class="code-snippet clickable" data-song="16.g 32- 16.g 32- 16.g 32- 1e" data-bpm="140">16.g 32- 16.g 32- 16.g 32- 1e</span>
                 </p>
 
                 <p><b>"#"</b> makes the note sharp (must be written in front of the note), e.g. "8.#f". There are no flat notes.</p>
                 <p>Octave can be written after the note. Default octave is 1. Supported octaves are 1 to 3.</p>
-                <p> &gt;&nbsp;
+                <p>
                   <span class="code-snippet clickable" data-song="16e2 16d2 8#f 8#g 16#c2 16b 8d 8e 16b 16a 8#c 8e 2a" data-bpm="120">
                     16e2 16d2 8#f 8#g 16#c2 16b 8d 8e 16b 16a 8#c 8e 2a
                   </span>
@@ -78,14 +86,28 @@
 
                 <p>Tempo can be set in the BPM field.</p>
 
+                <h3>Defaults and RTTTL</h3>
+
+                <p>
+                  Default duration (<b>d</b>) and octave (<b>o</b>) apply when a note omits those values. Octaves follow RTTTL
+                  (typically 4-7), and are mapped to Nokia Composer's supported range.
+                </p>
+
+                <p>RTTTL strings are supported too:</p>
+                <p>
+                  <span class="code-snippet clickable" data-song="Super Mario:d=4,o=5,b=100:16e6,16e6,32p,8e6,16c6,8e6,8g6,8p,8g,8p,8c6,16p,8g,16p,8e,16p,8a,8b,16a#,8a,16g.,16e6,16g6,8a6,16f6,8g6,8e6,16c6,16d6,8b,16p,8c6,16p,8g,16p,8e,16p,8a,8b,16a#,8a,16g.,16e6,16g6,8a6,16f6,8g6,8e6,16c6,16d6,8b,8p,16g6,16f#6,16f6,16d#6,16p,16e6,16p,16g#,16a,16c6,16p,16a,16c6,16d6,8p,16g6,16f#6,16f6,16d#6,16p,16e6,16p,16c7,16p,16c7,16c7,p,16g6,16f#6,16f6,16d#6,16p,16e6,16p,16g#,16a,16c6,16p,16a,16c6,16d6,8p,16d#6,8p,16d6,8p,16c6">Super Mario:d=4,o=5,b=100:16e6,16e6,32p,8e6,16c6,8e6...</span>
+                </p>
+
                 <p>You can share composed melodies by sending the complete URL. It contains the tempo and the melody. You may bookmark melodies in your browser to play them later.</p>
 
-                <p>This is based on <a href="https://github.com/zserge/nokia-composer" target="_blank">zserge's js code</a>.</p>
+                <p>
+                  Credits: <a href="https://github.com/zserge/nokia-composer" target="_blank">zserge's js code</a>,
+                  <a href="https://github.com/eddmann/nokia-composer-web/" target="_blank">edmann's js code</a>.
+                </p>
             </div>
         </div>
     </div>
 
     <script type="module" src="js/ui.js"></script>
-    <script>new Image().src='https://nullitics.com/file.gif?u=nokia&r='+encodeURI(document.referrer)+'&d='+screen.width</script>
 </body>
 </html>

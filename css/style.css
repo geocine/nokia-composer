@@ -99,7 +99,7 @@ body {
 
 .controls {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 }
 
@@ -107,6 +107,10 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.control-group--wide {
+  grid-column: 1 / -1;
 }
 
 .label {
@@ -170,8 +174,22 @@ body {
   transition: border-color 0.2s;
 }
 
+.screen[contenteditable="false"] {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  cursor: default;
+}
+
 .screen:focus {
   border-color: var(--zinc-600);
+}
+
+.note-active {
+  background-color: var(--zinc-700);
+  color: var(--zinc-white);
+  border-radius: 2px;
 }
 
 .btn {
@@ -324,6 +342,26 @@ body {
   background-color: var(--zinc-800);
   border-color: var(--zinc-500);
   color: var(--zinc-100);
+}
+
+@media (max-width: 520px) {
+  .controls {
+    grid-template-columns: 1fr;
+  }
+
+  .control-group--wide {
+    grid-column: 1;
+  }
+}
+
+/* Hide spin buttons */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 /* Custom Scrollbar */
