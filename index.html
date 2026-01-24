@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nokia Composer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:,">
+</head>
+<body>
+    <div class="app-container">
+        <div class="card">
+            <div class="header">
+                <div class="title">Nokia Composer</div>
+                <button id="help-btn" class="help-link-btn">HELP</button>
+            </div>
+
+            <div class="controls">
+                <div class="control-group">
+                    <label class="label" for="bpm">BPM</label>
+                    <input class="input" id="bpm" value="120" type="number" min="1" max="800" />
+                </div>
+                <div class="control-group">
+                    <label class="label" for="song-select">Load Song</label>
+                    <select class="select" id="song-select"></select>
+                </div>
+            </div>
+
+            <div class="editor-container">
+                <label class="label" for="song">Composer</label>
+                <div id="song" class="screen" contenteditable="true" spellcheck="false"></div>
+            </div>
+
+            <button id="play-btn" class="btn" type="button">Loading...</button>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="help-modal" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">Help</h2>
+                <button id="close-help-btn" class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>
+                  Composer was a classic Nokia phone application which allowed to compose ring tones phones by pressing the phones buttons to make certain sounds.
+                </p>
+
+                <h3>Notes and rests</h3>
+
+                <p>
+                  A melody in composer format is a sequence of notes, separated by whitespace. Notes can be upper-case or lower-case from <b>C</b> (do) to <b>B</b> (ti).
+                </p>
+
+                <p> &gt;&nbsp;
+                  <span class="code-snippet clickable" data-song="c d e f g a b" data-bpm="120">c d e f g a b</span>
+                </p>
+
+                <p>Note duration can be written before the note symbol. Dot increases the note duration by half. Default note duration is 1/4th.</p>
+
+                <p> &gt;&nbsp;
+                  <span class="code-snippet clickable" data-song="4.c 8d 4.e 8c 4e 4c 4e" data-bpm="140">4.c 8d 4.e 8c 4e 4c 4e</span>
+                </p>
+
+                <p>Rests are indicated by the "-" character</p>
+                <p> &gt;&nbsp;
+                  <span class="code-snippet clickable" data-song="16.g 32- 16.g 32- 16.g 32- 1e" data-bpm="140">16.g 32- 16.g 32- 16.g 32- 1e</span>
+                </p>
+
+                <p><b>"#"</b> makes the note sharp (must be written in front of the note), e.g. "8.#f". There are no flat notes.</p>
+                <p>Octave can be written after the note. Default octave is 1. Supported octaves are 1 to 3.</p>
+                <p> &gt;&nbsp;
+                  <span class="code-snippet clickable" data-song="16e2 16d2 8#f 8#g 16#c2 16b 8d 8e 16b 16a 8#c 8e 2a" data-bpm="120">
+                    16e2 16d2 8#f 8#g 16#c2 16b 8d 8e 16b 16a 8#c 8e 2a
+                  </span>
+                </p>
+
+                <p>Tempo can be set in the BPM field.</p>
+
+                <p>You can share composed melodies by sending the complete URL. It contains the tempo and the melody. You may bookmark melodies in your browser to play them later.</p>
+
+                <p>This is based on <a href="https://github.com/zserge/nokia-composer" target="_blank">zserge's js code</a>.</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/ui.js"></script>
+    <script>new Image().src='https://nullitics.com/file.gif?u=nokia&r='+encodeURI(document.referrer)+'&d='+screen.width</script>
+</body>
+</html>

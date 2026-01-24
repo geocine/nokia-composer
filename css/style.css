@@ -1,0 +1,343 @@
+:root {
+  /* Zinc Palette */
+  --zinc-black: #000000;
+  --zinc-950: #09090b;
+  --zinc-900: #18181b;
+  --zinc-800: #27272a;
+  --zinc-700: #3f3f46;
+  --zinc-600: #52525b;
+  --zinc-500: #71717a;
+  --zinc-400: #a1a1aa;
+  --zinc-300: #d4d4d8;
+  --zinc-200: #e4e4e7;
+  --zinc-100: #f4f4f5;
+  --zinc-white: #ffffff;
+
+  --color-bg: var(--zinc-black);
+  --color-surface: var(--zinc-900);
+  --color-border: var(--zinc-800);
+  --color-text-primary: var(--zinc-200);
+  --color-text-secondary: var(--zinc-500);
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-nokia: 'Nokia', monospace;
+
+  --radius-sm: 2px;
+}
+
+@font-face {
+  font-family: 'Nokia';
+  src: url('../assets/nokia-font.ttf');
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 480px;
+  padding: 1rem;
+}
+
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--zinc-800);
+}
+
+.title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--zinc-100);
+}
+
+.help-link-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--zinc-500);
+  font-size: 0.875rem;
+  font-family: var(--font-sans);
+  font-weight: 400; /* reset inherit */
+  transition: color 0.2s;
+  padding: 0;
+}
+
+.help-link-btn:hover {
+  color: var(--zinc-300);
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1rem;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--zinc-500);
+}
+
+.input, .select {
+  width: 100%;
+  background-color: var(--zinc-950);
+  border: 1px solid var(--color-border);
+  color: var(--zinc-200);
+  padding: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color 0.2s;
+  height: 38px; /* Alignment */
+}
+
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2371717a'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 9l6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 1rem;
+  padding-right: 2rem;
+  cursor: pointer;
+}
+
+.input:focus, .select:focus {
+  border-color: var(--zinc-600);
+  border-right-width: 1px; 
+}
+
+.editor-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.screen {
+  background-color: var(--zinc-950);
+  color: var(--zinc-200); /* Clean white/zinc text */
+  font-family: 'Nokia', monospace;
+  font-size: 1.25rem;
+  padding: 1rem;
+  border: 1px solid var(--zinc-800);
+  border-radius: var(--radius-sm);
+  min-height: 180px;
+  outline: none;
+  white-space: pre-wrap;
+  overflow-y: auto;
+  line-height: 1.4;
+  transition: border-color 0.2s;
+}
+
+.screen:focus {
+  border-color: var(--zinc-600);
+}
+
+.btn {
+  background-color: var(--zinc-white);
+  color: var(--zinc-black);
+  border: none;
+  padding: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.btn:hover {
+  background-color: var(--zinc-200);
+}
+
+.btn:disabled, .btn[aria-disabled="true"] {
+  background-color: var(--zinc-800);
+  color: var(--zinc-500);
+  cursor: not-allowed;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+  padding: 1rem;
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+.modal {
+  background-color: var(--zinc-900);
+  border: 1px solid var(--zinc-800);
+  border-radius: var(--radius-sm);
+  width: 100%;
+  max-width: 600px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  overflow: hidden; /* Ensure children don't bleed out of corners */
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--zinc-800);
+  flex-shrink: 0; /* Prevent header from squishing */
+}
+
+.modal-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--zinc-100);
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--zinc-500);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.modal-close:hover {
+  color: var(--zinc-200);
+}
+
+.modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  color: var(--zinc-300);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  flex: 1; /* Allow body to fill space and scroll */
+  min-height: 0; /* Webkit flexbox fix */
+}
+
+.modal-body h3 {
+  color: var(--zinc-100);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.modal-body p {
+  margin-bottom: 1rem;
+}
+
+.modal-body a {
+  color: var(--zinc-400);
+  text-decoration: underline;
+}
+
+.modal-body a:hover {
+  color: var(--zinc-200);
+}
+
+.code-snippet {
+  font-family: 'Nokia', monospace;
+  background: var(--zinc-950);
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--zinc-800);
+  display: inline-block;
+  color: var(--zinc-300);
+  font-size: 1rem;
+}
+
+.code-snippet.clickable {
+  cursor: pointer;
+  transition: all 0.2s;
+  border-color: var(--zinc-700);
+}
+
+.code-snippet.clickable:hover {
+  background-color: var(--zinc-800);
+  border-color: var(--zinc-500);
+  color: var(--zinc-100);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--zinc-900);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--zinc-700);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--zinc-600);
+}
