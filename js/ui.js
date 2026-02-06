@@ -651,7 +651,26 @@ class NokiaComposer {
   }
 }
 
+function updateVerticalLayout() {
+  const container = document.querySelector('.app-container');
+  if (!container) return;
+
+  // If the app card is taller than the viewport, don't vertically center;
+  // top-align so the user can scroll from the top.
+  const rect = container.getBoundingClientRect();
+  const paddingSlack = 16; // matches our body padding
+  const isOverflowing = rect.height + paddingSlack * 2 > window.innerHeight;
+  document.body.classList.toggle('is-overflowing', isOverflowing);
+}
+
 // Initialize on load
 window.addEventListener('DOMContentLoaded', () => {
   new NokiaComposer();
+  updateVerticalLayout();
+
+  // Recompute on resize/orientation change.
+  window.addEventListener('resize', () => {
+    // Avoid thrash when the address bar collapses/expands on mobile.
+    window.requestAnimationFrame(updateVerticalLayout);
+  });
 });

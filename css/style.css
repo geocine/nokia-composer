@@ -41,9 +41,21 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text-primary);
   font-family: var(--font-sans);
+
+  /* Center vertically when there is enough viewport height.
+     If content becomes taller than the viewport, we switch to top-align so
+     the page can scroll naturally (see .is-overflowing below). */
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  /* Small breathing room (also helps when top-aligned). */
+  padding: 1rem 0;
+}
+
+body.is-overflowing {
+  align-items: flex-start;
 }
 
 .app-container {
